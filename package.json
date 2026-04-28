@@ -1,0 +1,27 @@
+{
+  "name": "automation-tests",
+  "version": "1.0.0",
+  "description": "SauceDemo automation project using Playwright + TypeScript + POM",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "report": "playwright show-report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jeka1988/automation-tests.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jeka1988/automation-tests/issues"
+  },
+  "homepage": "https://github.com/Jeka1988/automation-tests#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
+  }
+}
