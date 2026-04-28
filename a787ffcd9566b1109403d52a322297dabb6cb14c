@@ -1,0 +1,51 @@
+package.json
+  a8a10b59d3d5caa7 1-27
+src/pages/LoginPage.ts
+  a8a10b59d3d5caa7 1-36
+src/pages/InventoryPage.ts
+  a8a10b59d3d5caa7 1-53
+tests/cart.spec.ts
+  a8a10b59d3d5caa7 1-47
+src/fixtures/testData.ts
+  a8a10b59d3d5caa7 1-52
+.gitignore
+  a8a10b59d3d5caa7 1-3
+tests/login.spec.ts
+  a8a10b59d3d5caa7 1-73
+README.md
+  a8a10b59d3d5caa7 1-148
+tsconfig.json
+  a8a10b59d3d5caa7 1-13
+playwright.config.ts
+  a8a10b59d3d5caa7 1-20
+tests/purchase-flow.spec.ts
+  a8a10b59d3d5caa7 1-66
+tests/fixtures/base.fixture.ts
+  a8a10b59d3d5caa7 1-29
+tests/checkout-negative.spec.ts
+  a8a10b59d3d5caa7 1-68
+src/pages/CartPage.ts
+  a8a10b59d3d5caa7 1-27
+src/pages/CheckoutPage.ts
+  a8a10b59d3d5caa7 1-49
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.17",
+  "base_commit_sha": "a787ffcd9566b1109403d52a322297dabb6cb14c",
+  "prompts": {
+    "a8a10b59d3d5caa7": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "097abe9a-94d3-488d-9d78-d60ae7982fc7",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": "ZivGutman <ziv.gutman@growthspace.com>",
+      "messages": [],
+      "total_additions": 878,
+      "total_deletions": 168,
+      "accepted_lines": 711,
+      "overriden_lines": 0
+    }
+  }
+}
