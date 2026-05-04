@@ -22,7 +22,7 @@ test.describe("Login flow", () => {
     });
 
     await test.step("Login with valid credentials and verify inventory screen", async () => {
-      await loginPage.login(SauceUser.STANDARD, SauceCredential.PASSWORD);
+      await loginPage.loginAs(SauceUser.STANDARD);
       await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
       await expect(inventoryPage.productsTitle).toBeVisible();
       await expect(inventoryPage.productsTitle).toHaveText(UiText.PRODUCTS);
@@ -49,7 +49,7 @@ test.describe("Login flow", () => {
     });
 
     await test.step("Try to login with locked user and verify the error message", async () => {
-      await loginPage.login(SauceUser.LOCKED, SauceCredential.PASSWORD);
+      await loginPage.loginAs(SauceUser.LOCKED);
       await expect(loginPage.errorBanner).toBeVisible();
       await expect(loginPage.errorMessage(UiText.LOCKED_USER_ERROR)).toBeVisible();
     });
@@ -58,7 +58,7 @@ test.describe("Login flow", () => {
   test("allows standard_user to logout", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Login with standard user and verify inventory screen", async () => {
       await loginPage.goto();
-      await loginPage.login(SauceUser.STANDARD, SauceCredential.PASSWORD);
+      await loginPage.loginAs(SauceUser.STANDARD);
       await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
       await expect(inventoryPage.productsTitle).toBeVisible();
     });

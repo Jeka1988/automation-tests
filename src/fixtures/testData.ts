@@ -14,7 +14,19 @@ export enum SauceCredential {
 }
 
 export enum ProductName {
-  BACKPACK = "Sauce Labs Backpack"
+  BACKPACK = "Sauce Labs Backpack",
+  BIKE_LIGHT = "Sauce Labs Bike Light",
+  BOLT_T_SHIRT = "Sauce Labs Bolt T-Shirt",
+  FLEECE_JACKET = "Sauce Labs Fleece Jacket",
+  ONESIE = "Sauce Labs Onesie",
+  TEST_ALL_THE_THINGS_T_SHIRT = "Test.allTheThings() T-Shirt (Red)"
+}
+
+export enum ProductSort {
+  NAME_A_TO_Z = "az",
+  NAME_Z_TO_A = "za",
+  PRICE_LOW_TO_HIGH = "lohi",
+  PRICE_HIGH_TO_LOW = "hilo"
 }
 
 export enum CheckoutInputValue {
@@ -46,7 +58,17 @@ export enum UrlPath {
   LOGIN = "/",
   INVENTORY = "/inventory.html",
   CART = "/cart.html",
+  INVENTORY_ITEM = "/inventory-item.html",
   CHECKOUT_STEP_ONE = "/checkout-step-one.html",
   CHECKOUT_STEP_TWO = "/checkout-step-two.html",
   CHECKOUT_COMPLETE = "/checkout-complete.html"
 }
+
+export const productPriceByName: Record<ProductName, number> = {
+  [ProductName.BACKPACK]: 29.99,
+  [ProductName.BIKE_LIGHT]: 9.99,
+  [ProductName.BOLT_T_SHIRT]: 15.99,
+  [ProductName.FLEECE_JACKET]: 49.99,
+  [ProductName.ONESIE]: 7.99,
+  [ProductName.TEST_ALL_THE_THINGS_T_SHIRT]: 15.99
+};

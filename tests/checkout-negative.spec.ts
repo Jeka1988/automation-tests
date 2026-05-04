@@ -2,7 +2,6 @@ import { APIRequestContext } from "@playwright/test";
 import {
   CheckoutInputValue,
   ProductName,
-  SauceCredential,
   SauceUser,
   UiText,
   UrlPath
@@ -48,7 +47,7 @@ test.describe("Checkout validation", () => {
     test(scenario.name, async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
       await test.step("Login and navigate to checkout step one", async () => {
         await loginPage.goto();
-        await loginPage.login(SauceUser.STANDARD, SauceCredential.PASSWORD);
+        await loginPage.loginAs(SauceUser.STANDARD);
         await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
         await inventoryPage.addItemToCart(ProductName.BACKPACK);
         await inventoryPage.openCart();

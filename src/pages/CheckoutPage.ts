@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { UiText } from "../fixtures/testData";
+import { ProductName, UiText } from "../fixtures/testData";
 
 export class CheckoutPage {
   constructor(private readonly page: Page) {}
@@ -28,6 +28,18 @@ export class CheckoutPage {
     return this.page.getByText(UiText.CHECKOUT_SUCCESS, { exact: true });
   }
 
+  get summaryItemTotalLabel(): Locator {
+    return this.page.getByTestId("subtotal-label");
+  }
+
+  get summaryTaxLabel(): Locator {
+    return this.page.getByTestId("tax-label");
+  }
+
+  get summaryTotalLabel(): Locator {
+    return this.page.getByTestId("total-label");
+  }
+
   get errorBanner(): Locator {
     return this.page.getByText(UiText.CHECKOUT_ERROR_PREFIX, { exact: false });
   }
@@ -45,5 +57,29 @@ export class CheckoutPage {
 
   async finishOrder(): Promise<void> {
     await this.finishButton.click();
+  }
+
+  overviewProduct(itemName: ProductName): Locator {
+    return this.page.getByRole("link", { name: itemName });
+  }
+
+  async getItemTotalAmount(): Promise<number> {
+    const text = await this.summaryItemTotalLabel.textContent();
+    return this.extractCurrency(text ?? "");
+  }
+
+  async getTaxAmount(): Promise<number> {
+    const text = await this.summaryTaxLabel.textContent();
+    return this.extractCurrency(text ?? "");
+  }
+
+  async getTotalAmount(): Promise<number> {
+    const text = await this.summaryTotalLabel.textContent();
+    return this.extractCurrency(text ?? "");
+  }
+
+  private extractCurrency(raw: string): number {
+    const normalized = raw.replace(/[^\d.]/g, "");
+    return Number(normalized);
   }
 }

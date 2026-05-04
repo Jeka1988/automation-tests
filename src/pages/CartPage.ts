@@ -4,6 +4,10 @@ import { ProductName, UiText } from "../fixtures/testData";
 export class CartPage {
   constructor(private readonly page: Page) {}
 
+  get continueShoppingButton(): Locator {
+    return this.page.getByRole("button", { name: "Continue Shopping" });
+  }
+
   get checkoutButton(): Locator {
     return this.page.getByRole("button", { name: UiText.CHECKOUT });
   }
@@ -23,5 +27,9 @@ export class CartPage {
 
   async removeItem(itemName: ProductName): Promise<void> {
     await this.removeFromCartButton(itemName).click();
+  }
+
+  async continueShopping(): Promise<void> {
+    await this.continueShoppingButton.click();
   }
 }

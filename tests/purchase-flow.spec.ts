@@ -1,7 +1,6 @@
 import {
   CheckoutInputValue,
   ProductName,
-  SauceCredential,
   SauceUser,
   UiText,
   UrlPath
@@ -28,7 +27,7 @@ test.describe("Purchase flow", () => {
     });
 
     await test.step("Login with standard user and verify inventory page", async () => {
-      await loginPage.login(SauceUser.STANDARD, SauceCredential.PASSWORD);
+      await loginPage.loginAs(SauceUser.STANDARD);
       await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
       await expect(inventoryPage.productsTitle).toBeVisible();
     });

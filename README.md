@@ -21,6 +21,8 @@ Demo UI automation project for [SauceDemo](https://www.saucedemo.com/) using:
 - Use fixtures so page objects are automatically available in tests
 - Use enums for reusable texts, credentials, and product names
 - Use `beforeAll` / `afterAll` for suite setup-teardown resources
+- Keep all element actions inside page object methods
+- Tests may use `expect(...)` with page-object locators for readable assertions
 - Use `test.step(...)` and keep each step action paired with immediate assertions
 
 ## Covered Scenarios
@@ -40,6 +42,15 @@ Demo UI automation project for [SauceDemo](https://www.saucedemo.com/) using:
   - Missing first name
   - Missing last name
   - Missing postal code
+- Inventory sorting:
+  - Name A-Z and Z-A
+  - Price low-high and high-low
+- Product details:
+  - Open details, verify product data, add to cart, return to products
+- Protected routes:
+  - Direct access to inventory/cart/checkout routes redirects to login
+- Checkout overview totals:
+  - Verify subtotal, tax, and total calculation
 
 ## Demo Credentials
 
@@ -71,7 +82,10 @@ automation-tests/
       base.fixture.ts
     cart.spec.ts
     checkout-negative.spec.ts
+    checkout-overview.spec.ts
+    inventory.spec.ts
     login.spec.ts
+    product-details.spec.ts
     purchase-flow.spec.ts
   playwright.config.ts
   tsconfig.json
@@ -84,6 +98,7 @@ Shared values are centralized in `src/fixtures/testData.ts` using enums:
 - `SauceUser`
 - `SauceCredential`
 - `ProductName`
+- `ProductSort`
 - `CheckoutInputValue`
 - `UiText`
 - `UrlPath`
@@ -109,7 +124,7 @@ Each test receives initialized page objects as fixtures:
 
 Each spec file uses suite hooks to manage shared setup-teardown resources:
 
-- `beforeAll` creates a suite API request context and verifies SauceDemo is reachable
+- `beforeAll` creates a suite API request context
 - `afterAll` disposes that context to keep lifecycle management explicit and clean
 
 Business actions (login, cart operations, checkout actions) remain inside test bodies to preserve test isolation.

@@ -1,5 +1,5 @@
 import { APIRequestContext } from "@playwright/test";
-import { ProductName, SauceCredential, SauceUser, UrlPath } from "../src/fixtures/testData";
+import { ProductName, SauceUser, UrlPath } from "../src/fixtures/testData";
 import { expect, test } from "./fixtures/base.fixture";
 
 test.describe("Cart behavior", () => {
@@ -21,7 +21,7 @@ test.describe("Cart behavior", () => {
   }) => {
     await test.step("Login and verify inventory page", async () => {
       await loginPage.goto();
-      await loginPage.login(SauceUser.STANDARD, SauceCredential.PASSWORD);
+      await loginPage.loginAs(SauceUser.STANDARD);
       await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
       await expect(inventoryPage.productsTitle).toBeVisible();
     });
@@ -42,6 +42,47 @@ test.describe("Cart behavior", () => {
       await cartPage.removeItem(ProductName.BACKPACK);
       await expect(cartPage.cartItem(ProductName.BACKPACK)).toHaveCount(0);
       await expect(inventoryPage.cartBadge).toHaveCount(0);
+    });
+  });
+
+  test("supports multiple items, remove one item, and continue shopping", async ({
+    page,
+    loginPage,
+    inventoryPage,
+    cartPage
+  }) => {
+    const selectedProducts = [ProductName.BACKPACK, ProductName.BIKE_LIGHT] as const;
+
+    await test.step("Login and verify inventory page", async () => {
+      await loginPage.goto();
+      await loginPage.loginAs(SauceUser.STANDARD);
+      await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
+      await expect(inventoryPage.productsTitle).toBeVisible();
+    });
+
+    await test.step("Add two products and verify cart badge", async () => {
+      await inventoryPage.addItemsToCart([...selectedProducts]);
+      await expect(inventoryPage.cartBadge).toHaveText("2");
+    });
+
+    await test.step("Open cart and verify both products are listed", async () => {
+      await inventoryPage.openCart();
+      await expect(page).toHaveURL(new RegExp(`${UrlPath.CART}$`));
+      await expect(cartPage.cartItem(ProductName.BACKPACK)).toBeVisible();
+      await expect(cartPage.cartItem(ProductName.BIKE_LIGHT)).toBeVisible();
+    });
+
+    await test.step("Remove one product and verify cart updates", async () => {
+      await cartPage.removeItem(ProductName.BIKE_LIGHT);
+      await expect(cartPage.cartItem(ProductName.BIKE_LIGHT)).toHaveCount(0);
+      await expect(cartPage.cartItem(ProductName.BACKPACK)).toBeVisible();
+      await expect(inventoryPage.cartBadge).toHaveText("1");
+    });
+
+    await test.step("Continue shopping and verify inventory page", async () => {
+      await cartPage.continueShopping();
+      await expect(page).toHaveURL(new RegExp(`${UrlPath.INVENTORY}$`));
+      await expect(inventoryPage.productsTitle).toBeVisible();
     });
   });
 });

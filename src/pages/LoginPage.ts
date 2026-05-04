@@ -1,5 +1,5 @@
 import { Locator, Page } from "@playwright/test";
-import { UiText } from "../fixtures/testData";
+import { SauceCredential, SauceUser, UiText, UrlPath } from "../fixtures/testData";
 
 export class LoginPage {
   constructor(private readonly page: Page) {}
@@ -25,12 +25,20 @@ export class LoginPage {
   }
 
   async goto(): Promise<void> {
-    await this.page.goto("/");
+    await this.page.goto(UrlPath.LOGIN);
+  }
+
+  async gotoPath(path: UrlPath): Promise<void> {
+    await this.page.goto(path);
   }
 
   async login(username: string, password: string): Promise<void> {
     await this.usernameInput.fill(username);
     await this.passwordInput.fill(password);
     await this.loginButton.click();
+  }
+
+  async loginAs(user: SauceUser): Promise<void> {
+    await this.login(user, SauceCredential.PASSWORD);
   }
 }
