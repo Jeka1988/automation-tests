@@ -2,7 +2,7 @@ import { APIRequestContext } from "@playwright/test";
 import { SauceCredential, SauceUser, UiText, UrlPath } from "../src/fixtures/testData";
 import { expect, test } from "./fixtures/base.fixture";
 
-test.describe("Login flow", () => {
+test.describe("Login flow @regression", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -13,7 +13,7 @@ test.describe("Login flow", () => {
     await suiteApiContext.dispose();
   });
 
-  test("allows standard_user to log in", async ({ page, loginPage, inventoryPage }) => {
+  test("allows standard_user to log in @smoke", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Open login page and verify login form", async () => {
       await loginPage.goto();
       await expect(loginPage.usernameInput).toBeVisible();
@@ -29,7 +29,7 @@ test.describe("Login flow", () => {
     });
   });
 
-  test("shows error for invalid credentials", async ({ page, loginPage, inventoryPage }) => {
+  test("shows error for invalid credentials @regression", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Open login page and confirm submit action is available", async () => {
       await loginPage.goto();
       await expect(loginPage.loginButton).toBeVisible();
@@ -44,7 +44,7 @@ test.describe("Login flow", () => {
     });
   });
 
-  test("blocks locked_out_user login", async ({ page, loginPage, inventoryPage }) => {
+  test("blocks locked_out_user login @regression", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Open login page and confirm submit action is available", async () => {
       await loginPage.goto();
       await expect(loginPage.loginButton).toBeVisible();
@@ -59,7 +59,7 @@ test.describe("Login flow", () => {
     });
   });
 
-  test("allows standard_user to logout", async ({ page, loginPage, inventoryPage }) => {
+  test("allows standard_user to logout @regression", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Login with standard user and verify inventory screen", async () => {
       await loginPage.goto();
       await loginPage.loginAs(SauceUser.STANDARD);

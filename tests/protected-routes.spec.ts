@@ -4,7 +4,7 @@ import { expect, test } from "./fixtures/base.fixture";
 
 const protectedRoutes = [UrlPath.INVENTORY, UrlPath.CART, UrlPath.CHECKOUT_STEP_ONE] as const;
 
-test.describe("Protected route access", () => {
+test.describe("Protected route access @regression", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -16,7 +16,7 @@ test.describe("Protected route access", () => {
   });
 
   for (const route of protectedRoutes) {
-    test(`redirects unauthenticated user from ${route} to login`, async ({
+    test(`redirects unauthenticated user from ${route} to login @regression`, async ({
       page,
       loginPage,
       inventoryPage,

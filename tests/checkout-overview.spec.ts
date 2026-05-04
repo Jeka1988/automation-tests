@@ -8,7 +8,7 @@ import {
 } from "../src/fixtures/testData";
 import { expect, test } from "./fixtures/base.fixture";
 
-test.describe("Checkout overview totals", () => {
+test.describe("Checkout overview totals @regression", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -19,7 +19,7 @@ test.describe("Checkout overview totals", () => {
     await suiteApiContext.dispose();
   });
 
-  test("shows correct subtotal, tax, and total", async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
+  test("shows correct subtotal, tax, and total @regression", async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
     const selectedProducts = [ProductName.BACKPACK, ProductName.BIKE_LIGHT] as const;
     const expectedSubtotal = selectedProducts.reduce((sum, product) => sum + productPriceByName[product], 0);
 

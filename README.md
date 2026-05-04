@@ -87,9 +87,18 @@ automation-tests/
       playwright-pom-architecture.mdc
       playwright-test-style.mdc
       playwright-negative-verification.mdc
+  .github/
+    workflows/
+      playwright.yml
+  .auth/
+    standard-user.json (generated)
   tests/
+    authenticated/
+      auth-session.spec.ts
     fixtures/
       base.fixture.ts
+    setup/
+      auth.setup.ts
     cart.spec.ts
     checkout-negative.spec.ts
     checkout-overview.spec.ts
@@ -170,10 +179,48 @@ npm install
 npx playwright install
 ```
 
+To override the app URL:
+
+```bash
+BASE_URL=https://www.saucedemo.com npm test
+```
+
 ## Run Tests
 
 ```bash
 npm test
+```
+
+Typecheck:
+
+```bash
+npm run typecheck
+```
+
+Run tests serially:
+
+```bash
+npm run test:serial
+```
+
+Run smoke tests:
+
+```bash
+npm run test:smoke
+```
+
+Run regression tests:
+
+```bash
+npm run test:regression
+```
+
+Run per-browser:
+
+```bash
+npm run test:chromium
+npm run test:firefox
+npm run test:webkit
 ```
 
 Run headed:
@@ -187,3 +234,30 @@ Open HTML report:
 ```bash
 npm run report
 ```
+
+## Test Tagging
+
+- `@smoke`: critical happy paths (for example login success and purchase flow)
+- `@regression`: broader coverage suites (cart, checkout negatives, sorting, protected routes, details, totals)
+
+## Auth Storage Setup (Optional)
+
+The config includes an optional authenticated flow:
+
+- `tests/setup/auth.setup.ts` logs in as `standard_user` and saves `.auth/standard-user.json`
+- `chromium-auth` project uses that storage state
+- `tests/authenticated/auth-session.spec.ts` validates pre-authenticated access
+
+This keeps login tests independent while allowing fast authenticated checks.
+
+## CI
+
+GitHub Actions workflow: `.github/workflows/playwright.yml`
+
+Pipeline steps:
+
+- `npm ci`
+- `npx playwright install --with-deps`
+- `npm run typecheck`
+- `npm test`
+- upload Playwright artifacts

@@ -32,7 +32,7 @@ const checkoutValidationScenarios = [
   }
 ] as const;
 
-test.describe("Checkout validation", () => {
+test.describe("Checkout validation @regression", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -44,7 +44,7 @@ test.describe("Checkout validation", () => {
   });
 
   for (const scenario of checkoutValidationScenarios) {
-    test(scenario.name, async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
+    test(`${scenario.name} @regression`, async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
       await test.step("Login and navigate to checkout step one", async () => {
         await loginPage.goto();
         await loginPage.loginAs(SauceUser.STANDARD);

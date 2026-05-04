@@ -2,7 +2,7 @@ import { APIRequestContext } from "@playwright/test";
 import { ProductSort, SauceUser, UrlPath } from "../src/fixtures/testData";
 import { expect, test } from "./fixtures/base.fixture";
 
-test.describe("Inventory sorting", () => {
+test.describe("Inventory sorting @regression", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -13,7 +13,7 @@ test.describe("Inventory sorting", () => {
     await suiteApiContext.dispose();
   });
 
-  test("supports all product sort options", async ({ page, loginPage, inventoryPage }) => {
+  test("supports all product sort options @regression", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Login and verify inventory is loaded", async () => {
       await loginPage.goto();
       await loginPage.loginAs(SauceUser.STANDARD);

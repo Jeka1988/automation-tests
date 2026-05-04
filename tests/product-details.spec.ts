@@ -2,7 +2,7 @@ import { APIRequestContext } from "@playwright/test";
 import { ProductName, SauceUser, UrlPath, productPriceByName } from "../src/fixtures/testData";
 import { expect, test } from "./fixtures/base.fixture";
 
-test.describe("Product details", () => {
+test.describe("Product details @regression", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -13,7 +13,7 @@ test.describe("Product details", () => {
     await suiteApiContext.dispose();
   });
 
-  test("opens details, adds product to cart, and returns to inventory", async ({
+  test("opens details, adds product to cart, and returns to inventory @regression", async ({
     page,
     loginPage,
     inventoryPage,

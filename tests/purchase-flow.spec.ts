@@ -8,7 +8,7 @@ import {
 import { APIRequestContext } from "@playwright/test";
 import { expect, test } from "./fixtures/base.fixture";
 
-test.describe("Purchase flow", () => {
+test.describe("Purchase flow @smoke", () => {
   let suiteApiContext: APIRequestContext;
 
   test.beforeAll(async ({ playwright, baseURL }) => {
@@ -19,7 +19,7 @@ test.describe("Purchase flow", () => {
     await suiteApiContext.dispose();
   });
 
-  test("standard_user completes checkout", async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
+  test("standard_user completes checkout @smoke", async ({ page, loginPage, inventoryPage, cartPage, checkoutPage }) => {
     await test.step("Open login page and verify login form", async () => {
       await loginPage.goto();
       await expect(loginPage.usernameInput).toBeVisible();

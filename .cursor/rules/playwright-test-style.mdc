@@ -28,6 +28,14 @@ Avoid CSS/XPath unless web-first locators are not reliable.
 
 - Prefer `test.step(...)` for readable scenario flow.
 - Keep one clear outcome assertion per logical step (more if needed for guardrails).
+- Use suite/test tags to support targeted execution:
+  - `@smoke` for critical happy paths
+  - `@regression` for broad coverage
+
+## Configuration Conventions
+
+- Keep `BASE_URL` configurable through environment variables.
+- Keep CI-compatible reporters enabled (for example list/html/junit).
 
 ## Examples
 

@@ -4,8 +4,15 @@
   "description": "SauceDemo automation project using Playwright + TypeScript + POM",
   "scripts": {
     "test": "playwright test",
+    "test:serial": "playwright test --workers=1",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:chromium": "playwright test --project=chromium",
+    "test:firefox": "playwright test --project=firefox",
+    "test:webkit": "playwright test --project=webkit",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
+    "typecheck": "tsc --noEmit",
     "report": "playwright show-report"
   },
   "repository": {
