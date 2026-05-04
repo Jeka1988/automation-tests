@@ -24,6 +24,10 @@ Demo UI automation project for [SauceDemo](https://www.saucedemo.com/) using:
 - Keep all element actions inside page object methods
 - Tests may use `expect(...)` with page-object locators for readable assertions
 - Use `test.step(...)` and keep each step action paired with immediate assertions
+- For negative scenarios, enforce 3-part verification:
+  1. expected error appears
+  2. blocked/redirected state is confirmed
+  3. success-only markers are absent
 
 ## Covered Scenarios
 
@@ -77,6 +81,12 @@ automation-tests/
       InventoryPage.ts
       CartPage.ts
       CheckoutPage.ts
+      ProductDetailsPage.ts
+  .cursor/
+    rules/
+      playwright-pom-architecture.mdc
+      playwright-test-style.mdc
+      playwright-negative-verification.mdc
   tests/
     fixtures/
       base.fixture.ts
@@ -86,6 +96,7 @@ automation-tests/
     inventory.spec.ts
     login.spec.ts
     product-details.spec.ts
+    protected-routes.spec.ts
     purchase-flow.spec.ts
   playwright.config.ts
   tsconfig.json
@@ -119,6 +130,21 @@ Each test receives initialized page objects as fixtures:
 - `inventoryPage`
 - `cartPage`
 - `checkoutPage`
+- `productDetailsPage`
+
+## Cursor Project Rules
+
+The project includes always-on Cursor rules in `.cursor/rules/`:
+
+- `playwright-pom-architecture.mdc`
+- `playwright-test-style.mdc`
+- `playwright-negative-verification.mdc`
+
+These rules persist your standards for:
+
+- POM interaction boundaries (actions in page objects)
+- web-first locator and assertion strategy
+- strict negative-path verification to avoid false positives
 
 ## Suite Hooks Pattern
 
