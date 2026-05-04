@@ -16,6 +16,13 @@ export class CartPage {
     return this.page.getByRole("link", { name: itemName });
   }
 
+  cartItemPrice(itemName: ProductName): Locator {
+    return this.page
+      .locator(".cart_item")
+      .filter({ has: this.cartItem(itemName) })
+      .locator(".inventory_item_price");
+  }
+
   removeFromCartButton(itemName: ProductName): Locator {
     const productSlug = itemName.toLowerCase().replace(/\s+/g, "-");
     return this.page.getByTestId(`remove-${productSlug}`);
@@ -31,5 +38,10 @@ export class CartPage {
 
   async continueShopping(): Promise<void> {
     await this.continueShoppingButton.click();
+  }
+
+  async getCartItemPriceText(itemName: ProductName): Promise<string> {
+    const text = await this.cartItemPrice(itemName).textContent();
+    return text?.trim() ?? "";
   }
 }

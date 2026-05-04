@@ -41,6 +41,13 @@ export class InventoryPage {
     return this.page.getByTestId(`add-to-cart-${productSlug}`);
   }
 
+  productPrice(itemName: ProductName): Locator {
+    return this.page
+      .locator(".inventory_item")
+      .filter({ has: this.page.getByText(itemName, { exact: true }) })
+      .getByTestId("inventory-item-price");
+  }
+
   removeFromCartButton(itemName: ProductName): Locator {
     const productSlug = itemName.toLowerCase().replace(/\s+/g, "-");
     return this.page.getByTestId(`remove-${productSlug}`);
@@ -75,6 +82,11 @@ export class InventoryPage {
   async getVisibleProductPrices(): Promise<number[]> {
     const labels = await this.productPriceLabels.allTextContents();
     return labels.map((value) => Number(value.replace("$", "")));
+  }
+
+  async getProductPriceText(itemName: ProductName): Promise<string> {
+    const text = await this.productPrice(itemName).textContent();
+    return text?.trim() ?? "";
   }
 
   async openCart(): Promise<void> {

@@ -10,6 +10,7 @@ import { expect, test } from "./fixtures/base.fixture";
 
 test.describe("Purchase flow @smoke", () => {
   let suiteApiContext: APIRequestContext;
+  let backpackPriceFromInventory = "";
 
   test.beforeAll(async ({ playwright, baseURL }) => {
     suiteApiContext = await playwright.request.newContext({ baseURL });
@@ -33,15 +34,19 @@ test.describe("Purchase flow @smoke", () => {
     });
 
     await test.step("Add backpack to cart and verify cart badge", async () => {
+      backpackPriceFromInventory = await inventoryPage.getProductPriceText(ProductName.BACKPACK);
+      await expect(inventoryPage.productPrice(ProductName.BACKPACK)).toHaveText(backpackPriceFromInventory);
       await inventoryPage.addItemToCart(ProductName.BACKPACK);
       await expect(inventoryPage.cartBadge).toBeVisible();
       await expect(inventoryPage.cartBadge).toHaveText("1");
     });
 
-    await test.step("Open cart and verify chosen product exists", async () => {
+    await test.step("Open cart and verify chosen product and price", async () => {
       await inventoryPage.openCart();
       await expect(page).toHaveURL(new RegExp(`${UrlPath.CART}$`));
       await expect(cartPage.cartItem(ProductName.BACKPACK)).toBeVisible();
+      await expect(cartPage.cartItemPrice(ProductName.BACKPACK)).toHaveText(backpackPriceFromInventory);
+      await expect(await cartPage.getCartItemPriceText(ProductName.BACKPACK)).toBe(backpackPriceFromInventory);
     });
 
     await test.step("Proceed to checkout and complete customer details", async () => {
