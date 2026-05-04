@@ -1,0 +1,39 @@
+---
+description: Enforce Playwright locator, assertion, and test-step best practices
+alwaysApply: true
+---
+
+# Playwright Test Style
+
+## Locator Priority (inside page objects)
+
+1. `getByRole`
+2. `getByPlaceholder`
+3. `getByText`
+4. `getByTestId` only when needed for stability
+
+Avoid CSS/XPath unless web-first locators are not reliable.
+
+## Assertions
+
+- Use web-first assertions: `toBeVisible`, `toHaveText`, `toHaveURL`, `toHaveCount`.
+- Keep assertions explicit and deterministic (prefer exact text/count when possible).
+
+## Timing and Stability
+
+- Never use `page.waitForTimeout()`.
+- Rely on Playwright auto-wait and assertion polling.
+
+## Test Structure
+
+- Prefer `test.step(...)` for readable scenario flow.
+- Keep one clear outcome assertion per logical step (more if needed for guardrails).
+
+## Examples
+
+```ts
+await test.step("Login and verify inventory", async () => {
+  await loginPage.loginAs(SauceUser.STANDARD);
+  await expect(page).toHaveURL(/inventory\.html$/);
+});
+```

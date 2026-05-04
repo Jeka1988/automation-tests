@@ -61,6 +61,8 @@ test.describe("Checkout validation", () => {
         await expect(page).toHaveURL(new RegExp(`${UrlPath.CHECKOUT_STEP_ONE}$`));
         await expect(checkoutPage.errorBanner).toBeVisible();
         await expect(checkoutPage.errorMessage(scenario.expectedError)).toBeVisible();
+        await expect(page).not.toHaveURL(new RegExp(`${UrlPath.CHECKOUT_COMPLETE}$`));
+        await expect(checkoutPage.completeHeader).toHaveCount(0);
       });
     });
   }

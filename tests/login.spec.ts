@@ -29,7 +29,7 @@ test.describe("Login flow", () => {
     });
   });
 
-  test("shows error for invalid credentials", async ({ loginPage }) => {
+  test("shows error for invalid credentials", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Open login page and confirm submit action is available", async () => {
       await loginPage.goto();
       await expect(loginPage.loginButton).toBeVisible();
@@ -39,10 +39,12 @@ test.describe("Login flow", () => {
       await loginPage.login(SauceUser.INVALID, SauceCredential.WRONG_PASSWORD);
       await expect(loginPage.errorBanner).toBeVisible();
       await expect(loginPage.errorMessage(UiText.INVALID_CREDENTIALS_ERROR)).toBeVisible();
+      await expect(page).toHaveURL(new RegExp(`${UrlPath.LOGIN}$`));
+      await expect(inventoryPage.productsTitle).toHaveCount(0);
     });
   });
 
-  test("blocks locked_out_user login", async ({ loginPage }) => {
+  test("blocks locked_out_user login", async ({ page, loginPage, inventoryPage }) => {
     await test.step("Open login page and confirm submit action is available", async () => {
       await loginPage.goto();
       await expect(loginPage.loginButton).toBeVisible();
@@ -52,6 +54,8 @@ test.describe("Login flow", () => {
       await loginPage.loginAs(SauceUser.LOCKED);
       await expect(loginPage.errorBanner).toBeVisible();
       await expect(loginPage.errorMessage(UiText.LOCKED_USER_ERROR)).toBeVisible();
+      await expect(page).toHaveURL(new RegExp(`${UrlPath.LOGIN}$`));
+      await expect(inventoryPage.productsTitle).toHaveCount(0);
     });
   });
 

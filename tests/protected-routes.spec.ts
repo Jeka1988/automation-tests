@@ -16,7 +16,13 @@ test.describe("Protected route access", () => {
   });
 
   for (const route of protectedRoutes) {
-    test(`redirects unauthenticated user from ${route} to login`, async ({ page, loginPage }) => {
+    test(`redirects unauthenticated user from ${route} to login`, async ({
+      page,
+      loginPage,
+      inventoryPage,
+      cartPage,
+      checkoutPage
+    }) => {
       await test.step(`Navigate to protected route ${route}`, async () => {
         await loginPage.gotoPath(route);
       });
@@ -25,6 +31,18 @@ test.describe("Protected route access", () => {
         await expect(page).toHaveURL(new RegExp(`${UrlPath.LOGIN}$`));
         await expect(loginPage.loginButton).toBeVisible();
         await expect(loginPage.usernameInput).toBeVisible();
+
+        if (route === UrlPath.INVENTORY) {
+          await expect(inventoryPage.productsTitle).toHaveCount(0);
+        }
+
+        if (route === UrlPath.CART) {
+          await expect(cartPage.checkoutButton).toHaveCount(0);
+        }
+
+        if (route === UrlPath.CHECKOUT_STEP_ONE) {
+          await expect(checkoutPage.continueButton).toHaveCount(0);
+        }
       });
     });
   }

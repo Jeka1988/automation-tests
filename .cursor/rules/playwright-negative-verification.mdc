@@ -1,0 +1,32 @@
+---
+description: Require 3-part verification for negative and error-path tests
+alwaysApply: true
+---
+
+# Negative Verification Pattern
+
+For every negative scenario, verify all three:
+
+1. **Error proof**: expected error banner/message appears.
+2. **Blocked-state proof**: URL/state remains blocked or redirected to login.
+3. **Not-success proof**: success-only element(s) are absent.
+
+## Mandatory Pattern
+
+```ts
+await expect(errorBanner).toBeVisible();
+await expect(page).toHaveURL(/expected-blocked-url/);
+await expect(successHeader).toHaveCount(0);
+```
+
+## Project-specific guidance
+
+- Login negatives: confirm login URL + inventory marker absent.
+- Checkout negatives: confirm step-one URL + checkout-complete marker absent.
+- Protected routes: confirm login form visible + route-specific protected marker absent.
+
+## Anti-patterns
+
+- Passing a negative test with only one assertion.
+- Asserting generic error visibility without exact error text.
+- Missing not-success assertions.

@@ -1,0 +1,32 @@
+---
+description: Enforce POM interaction boundaries for Playwright tests
+alwaysApply: true
+---
+
+# Playwright POM Architecture
+
+- Keep page-object classes in `src/pages`.
+- Keep specs in `tests/**/*.spec.ts`.
+- Keep shared enums/test data in `src/fixtures/testData.ts`.
+- Keep fixture wiring in `tests/fixtures/base.fixture.ts`.
+
+## Interaction Boundary
+
+- Element actions belong in page objects only:
+  - `click`, `fill`, `selectOption`, `hover`, `check`, `uncheck`, `goto`.
+- Specs must call page-object methods for interactions.
+- Specs may use `expect(...)` on public page-object locators/state markers.
+
+## Examples
+
+```ts
+// GOOD (spec)
+await loginPage.loginAs(SauceUser.STANDARD);
+await expect(inventoryPage.productsTitle).toBeVisible();
+```
+
+```ts
+// BAD (spec)
+await loginPage.usernameInput.fill(SauceUser.STANDARD);
+await page.getByRole("button", { name: "Login" }).click();
+```
