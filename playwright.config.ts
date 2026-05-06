@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const isCI = !!process.env.CI;
+const browserProjectIgnore = [/.*authenticated\/.*\.spec\.ts/, /.*api\/.*\.api\.spec\.ts/];
 
 export default defineConfig({
   testDir: "./tests",
@@ -26,18 +27,22 @@ export default defineConfig({
       testMatch: /.*\.setup\.ts/
     },
     {
+      name: "api",
+      testMatch: /.*api\/.*\.api\.spec\.ts/
+    },
+    {
       name: "chromium",
-      testIgnore: /.*authenticated\/.*\.spec\.ts/,
+      testIgnore: browserProjectIgnore,
       use: { ...devices["Desktop Chrome"] }
     },
     {
       name: "firefox",
-      testIgnore: /.*authenticated\/.*\.spec\.ts/,
+      testIgnore: browserProjectIgnore,
       use: { ...devices["Desktop Firefox"] }
     },
     {
       name: "webkit",
-      testIgnore: /.*authenticated\/.*\.spec\.ts/,
+      testIgnore: browserProjectIgnore,
       use: { ...devices["Desktop Safari"] }
     },
     {

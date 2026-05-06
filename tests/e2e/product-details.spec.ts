@@ -1,6 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
-import { ProductName, SauceUser, UrlPath, productPriceByName } from "../src/fixtures/testData";
-import { expect, test } from "./fixtures/base.fixture";
+import { ProductName, SauceUser, UrlPath, productPriceByName } from "../../src/fixtures/testData";
+import { expect, test } from "../fixtures/base.fixture";
 
 test.describe("Product details @regression", () => {
   let suiteApiContext: APIRequestContext;

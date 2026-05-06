@@ -1,5 +1,5 @@
-import { expect, test } from "../fixtures/base.fixture";
-import { UiText, UrlPath } from "../../src/fixtures/testData";
+import { expect, test } from "../../fixtures/base.fixture";
+import { UiText, UrlPath } from "../../../src/fixtures/testData";
 
 test.describe("Authenticated session @smoke", () => {
   test("loads inventory with pre-authenticated storage state @smoke", async ({ page, inventoryPage }) => {

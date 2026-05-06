@@ -1,6 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
-import { SauceCredential, SauceUser, UiText, UrlPath } from "../src/fixtures/testData";
-import { expect, test } from "./fixtures/base.fixture";
+import { SauceCredential, SauceUser, UiText, UrlPath } from "../../src/fixtures/testData";
+import { expect, test } from "../fixtures/base.fixture";
 
 test.describe("Login flow @regression", () => {
   let suiteApiContext: APIRequestContext;

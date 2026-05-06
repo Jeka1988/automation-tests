@@ -5,8 +5,8 @@ import {
   SauceUser,
   UiText,
   UrlPath
-} from "../src/fixtures/testData";
-import { expect, test } from "./fixtures/base.fixture";
+} from "../../src/fixtures/testData";
+import { expect, test } from "../fixtures/base.fixture";
 
 const checkoutValidationScenarios = [
   {

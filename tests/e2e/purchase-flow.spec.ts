@@ -4,9 +4,9 @@ import {
   SauceUser,
   UiText,
   UrlPath
-} from "../src/fixtures/testData";
+} from "../../src/fixtures/testData";
 import { APIRequestContext } from "@playwright/test";
-import { expect, test } from "./fixtures/base.fixture";
+import { expect, test } from "../fixtures/base.fixture";
 
 test.describe("Purchase flow @smoke", () => {
   let suiteApiContext: APIRequestContext;

@@ -1,6 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
-import { UrlPath } from "../src/fixtures/testData";
-import { expect, test } from "./fixtures/base.fixture";
+import { UrlPath } from "../../src/fixtures/testData";
+import { expect, test } from "../fixtures/base.fixture";
 
 const protectedRoutes = [UrlPath.INVENTORY, UrlPath.CART, UrlPath.CHECKOUT_STEP_ONE] as const;
 

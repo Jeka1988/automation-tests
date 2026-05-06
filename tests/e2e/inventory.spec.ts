@@ -1,6 +1,6 @@
 import { APIRequestContext } from "@playwright/test";
-import { ProductSort, SauceUser, UrlPath } from "../src/fixtures/testData";
-import { expect, test } from "./fixtures/base.fixture";
+import { ProductSort, SauceUser, UrlPath } from "../../src/fixtures/testData";
+import { expect, test } from "../fixtures/base.fixture";
 
 test.describe("Inventory sorting @regression", () => {
   let suiteApiContext: APIRequestContext;

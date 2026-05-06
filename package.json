@@ -12,6 +12,7 @@
     "test:webkit": "playwright test --project=webkit",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
+    "test:api": "playwright test --project=api",
     "typecheck": "tsc --noEmit",
     "report": "playwright show-report"
   },

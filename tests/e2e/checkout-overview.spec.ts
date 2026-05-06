@@ -5,8 +5,8 @@ import {
   SauceUser,
   UrlPath,
   productPriceByName
-} from "../src/fixtures/testData";
-import { expect, test } from "./fixtures/base.fixture";
+} from "../../src/fixtures/testData";
+import { expect, test } from "../fixtures/base.fixture";
 
 test.describe("Checkout overview totals @regression", () => {
   let suiteApiContext: APIRequestContext;
